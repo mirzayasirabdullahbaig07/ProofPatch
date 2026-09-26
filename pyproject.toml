@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+# Run with `PROOFPATCH_VARIANT=<variant> pytest` from the project root.
+# The PROOFPATCH_VARIANT environment variable selects the implementation;
+# omitting it defaults to "baseline" inside the test modules.
+testpaths = ["tests"]
+addopts = ["-v", "--tb=short"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
