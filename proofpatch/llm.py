@@ -142,9 +142,13 @@ def get_api_key(session_state: Any | None = None) -> str:
         import streamlit as st
 
         secret_key = str(st.secrets.get("GROQ_API_KEY", "")).strip()
+        if not secret_key:
+            groq_section = st.secrets.get("groq", {})
+            if hasattr(groq_section, "get"):
+                secret_key = str(groq_section.get("api_key", "")).strip()
         if secret_key:
             return secret_key
-    except Exception:
+    except (FileNotFoundError, KeyError):
         pass
 
     if session_state is not None and session_state.get("_groq_key"):
